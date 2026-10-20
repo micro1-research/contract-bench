@@ -25,7 +25,7 @@ checkout outside synced folders.
 | Command | What it does | Key flags |
 | --- | --- | --- |
 | `contractbench fetch` | downloads the dataset from Hugging Face into `./benchmark` | `--revision v1.0`, `--dest DIR`, `--pattern GLOB` (repeatable, for a subset) |
-| `contractbench preflight` | checks Harbor, Docker, the dataset and the keys | `--model M`, `--build` (one image and a no-op run), `--no-docker`, `--no-keys` |
+| `contractbench preflight` | checks Harbor, Docker, the dataset and the keys | `--model M`, `--build` (one image and a no-op run), `--no-docker`, `--no-keys`, `--no-harbor` |
 | `contractbench run` | starts one Harbor job per model over the set's inputs | `--run-id R`, `--model M` (repeatable), `--set public\|private\|full`, `--tasks GLOB`, `-k 3`, `-n 4`, `--override KEY=JSON`, `--output-token-max N`, `--until-complete`, `--dry-run` |
 | `contractbench resume` | continues an interrupted run; finished attempts are kept | `--run-id R`, `--model M`, `--filter-error-type T`, `--until-complete` |
 | `contractbench status` | per-model progress | `--run-id R` |

@@ -47,12 +47,18 @@ def cmd_fetch(args) -> int:
 def cmd_preflight(args) -> int:
     ok = True
     env = keys.load_env()
-    try:
-        v = harbor_cmd.check_version()
-        _log(f"harbor {'.'.join(map(str, v))}: ok")
-    except (FileNotFoundError, RuntimeError) as e:
-        _log(f"harbor: {e}")
-        ok = False
+    if args.build and args.no_harbor:
+        _log("--build needs Harbor; drop --no-harbor")
+        return 1
+    if args.no_harbor:
+        _log("harbor: check skipped (--no-harbor)")
+    else:
+        try:
+            v = harbor_cmd.check_version()
+            _log(f"harbor {'.'.join(map(str, v))}: ok")
+        except (FileNotFoundError, RuntimeError) as e:
+            _log(f"harbor: {e}")
+            ok = False
     if not args.no_docker:
         docker = shutil.which("docker")
         if not docker:
@@ -277,8 +283,9 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("--model", action="append", help="model alias or provider/model id to check keys for")
     sp.add_argument("--set", default="public", choices=["public", "private", "full"])
     sp.add_argument("--build", action="store_true", help="build one task image and run the no-op agent")
-    sp.add_argument("--no-docker", action="store_true")
-    sp.add_argument("--no-keys", action="store_true")
+    sp.add_argument("--no-docker", action="store_true", help="skip the Docker check")
+    sp.add_argument("--no-keys", action="store_true", help="skip the key checks")
+    sp.add_argument("--no-harbor", action="store_true", help="skip the Harbor check (dataset-only validation)")
     sp.set_defaults(fn=cmd_preflight)
 
     sp = sub.add_parser("run", help="run a model over the task inputs with Harbor")
