@@ -10,7 +10,7 @@ criteria written by the attorney who reviewed the same contract.
 This repository is the runner: it downloads the task dataset from Hugging Face, runs a model over the tasks with
 [Harbor](https://github.com/laude-institute/harbor), grades the redlines with the benchmark's judge panel and
 computes the leaderboard and surgicality metrics. The tasks themselves live in the dataset
-[`micro1-inc/ContractBench`](https://huggingface.co/datasets/micro1-inc/ContractBench).
+[`micro1-inc/ContractBench`](https://huggingface.co/datasets/micro1-inc/ContractBench). The benchmark report can be viewed at https://www.ivo.ai/research/ivo-micro1-contractbench and https://www.micro1.ai/benchmark/ivo-micro1-contract-bench.
 
 ## Quick start
 
