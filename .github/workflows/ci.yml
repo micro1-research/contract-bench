@@ -29,7 +29,7 @@ jobs:
 
   hf-smoke:
     # Manual: fetches one scenario's five Turn 1 tasks from the dataset and validates them (no Harbor, no Docker,
-    # no keys). Needs HF_TOKEN while the dataset is private.
+    # no keys).
     if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
@@ -37,7 +37,6 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
       - run: pip install -e .
-      - env: { HF_TOKEN: "${{ secrets.HF_TOKEN }}" }
-        run: |
+      - run: |
           contractbench fetch --pattern 'tasks/ip-bbb-aaa-t1-*/**' --pattern 'registry.json' --pattern '.gitattributes'
           contractbench preflight --no-docker --no-keys --no-harbor

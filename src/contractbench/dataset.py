@@ -193,17 +193,13 @@ def fetch(
     revision: str | None = paths.DEFAULT_REVISION,
     patterns: list[str] | None = None,
     repo_id: str = paths.HF_REPO_ID,
-    token: str | None = None,
 ) -> Path:
     """Download the dataset (or a subset by glob) from Hugging Face into `dest` and record what was fetched."""
     from huggingface_hub import HfApi, snapshot_download
 
     dest = (dest or paths.benchmark_dir()).expanduser().resolve()
-    token = token or os.environ.get("HF_TOKEN") or None
-    info = HfApi(token=token).dataset_info(repo_id, revision=revision)
-    snapshot_download(
-        repo_id=repo_id, repo_type="dataset", revision=revision, local_dir=str(dest), allow_patterns=patterns, token=token
-    )
+    info = HfApi().dataset_info(repo_id, revision=revision)
+    snapshot_download(repo_id=repo_id, repo_type="dataset", revision=revision, local_dir=str(dest), allow_patterns=patterns)
     record = {
         "repo_id": repo_id,
         "revision": revision,
