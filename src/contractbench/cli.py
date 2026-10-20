@@ -111,8 +111,8 @@ def _prepare(args, create: bool):
     env = keys.load_env()
     protocol = load_protocol()
     ds = _dataset(args)
-    hv = ".".join(map(str, harbor_cmd.check_version()))
-    if create:
+    if create:  # only commands that launch Harbor need it installed; collect, grade and metrics work without it
+        hv = ".".join(map(str, harbor_cmd.check_version()))
         run = runner.ensure_run(args.run_id, ds, protocol, args.set, args.tasks or [], hv, getattr(args, "k", None))
     else:
         run = Run(args.run_id)
