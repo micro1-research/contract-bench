@@ -96,8 +96,8 @@ Each Hugging Face entry is a complete Harbor task. The pieces of `tasks/<task na
 | `tests/rubrics.json` | the attorney's rubric items for this task |
 | `tests/baseline/contract.docx` | the input, kept for the grader's diff |
 
-Beside the tasks, `references/<task name>.docx` holds the attorney's own redline for each task, and `data/*.parquet`
-one row per task and one per rubric item for browsing.
+Beside the tasks, `references/<task name>.docx` holds the attorney's own redline for each task, and
+`data/tasks.parquet` one row per task for browsing (the dataset viewer).
 
 Task names read `<agreement>-<party>-<counterparty>-t<turn>-<attorney>`, for example `ip-whithill-hartsong-t1-c`
 (IP licensing, Turn 1, attorney C) and `ip-whithill-hartsong-t2-c` (the Turn 2 task that answers attorney C's

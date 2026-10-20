@@ -45,7 +45,7 @@ tasks/<task name>/
     rubrics.json                the attorney's rubric items for this task
     baseline/contract.docx      the input, kept for the grader's diff
 references/<task name>.docx    the attorney's own redline for the task
-data/tasks.parquet, data/rubrics.parquet   one row per task, one row per rubric item
+data/tasks.parquet             one row per task (the dataset viewer)
 registry.json                  the Harbor dataset manifest (`contractbench-public@1.0`)
 ```
 
