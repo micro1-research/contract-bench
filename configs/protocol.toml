@@ -1,0 +1,24 @@
+# The benchmark protocol. Changing these values changes what the numbers mean; the leaderboard used these.
+
+[rollouts]
+attempts_per_input = 3        # the first three finished attempts per input count, in start order
+max_reruns_per_input = 3      # infrastructure failures and timeouts are re-run at most this many times
+timeout_policy = "rerun"      # "rerun": an agent timeout is re-run (capped); "counted": it counts as a failure
+
+[classification]
+# Counted failures are kept and never replaced; re-run statuses are retried (capped) and never counted.
+counted_failures = ["length_stop", "ended_in_thinking", "no_edit_finished", "gate_rejected"]
+rerun = ["infra", "timeout", "no_deliverable", "unfinished"]
+# Harbor error types treated as infrastructure failures (passed to `harbor job resume --filter-error-type`)
+harbor_infra_error_types = [
+  "CancelledError", "AgentSetupTimeoutError", "EnvironmentStartTimeoutError", "SandboxBuildFailedError",
+  "HealthcheckError", "ApiRateLimitError", "ApiOverloadedError", "ApiInternalServerError",
+  "ApiConnectionClosedError", "NetworkConnectionError", "ApiUsageLimitError",
+]
+
+[grading]
+panel = "anthropic/claude-opus-4-8,openai/gpt-5.5,gemini/gemini-3.5-flash"
+rubrics_per_call = 0          # all rubric items of a task in one judge call
+panel_parallel = true         # the three judges are called concurrently inside one grade
+parallel_grades = 8           # grades in flight (each is three judge calls)
+retries = 2                   # extra passes for grades that are missing or short of a full panel

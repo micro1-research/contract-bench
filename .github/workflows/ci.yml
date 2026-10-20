@@ -1,0 +1,42 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -e .[dev]
+      - run: ruff check . && ruff format --check .
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "${{ matrix.python }}" }
+      - run: pip install -e .[dev]
+      - run: pytest -q          # offline: synthetic fixtures, no Docker, no judge calls
+
+  hf-smoke:
+    # Manual: fetches one task from the dataset and validates it. Needs HF_TOKEN while the dataset is private.
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -e .
+      - env: { HF_TOKEN: "${{ secrets.HF_TOKEN }}" }
+        run: |
+          contractbench fetch --pattern 'tasks/ip-bbb-aaa-t1-a/**' --pattern 'registry.json' --pattern '.gitattributes'
+          contractbench preflight --no-docker --no-keys

@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ContractBench attempt (runs/<run-id>/rollouts/<model>/<input>/attempt<N>/trial.json)",
+  "type": "object",
+  "required": ["run_id", "model_slug", "input_task", "scenario", "turn", "split", "attempt", "counted", "status"],
+  "properties": {
+    "run_id": {"type": "string"},
+    "model_slug": {"type": "string"},
+    "model_id": {"type": ["string", "null"]},
+    "input_task": {"type": "string"},
+    "scenario": {"type": "string"},
+    "turn": {"type": "integer", "enum": [1, 2]},
+    "split": {"type": "string", "enum": ["public", "private"]},
+    "attempt": {"type": "integer", "minimum": 1},
+    "counted": {"type": "boolean"},
+    "status": {"type": "string", "enum": ["success", "length_stop", "ended_in_thinking", "no_edit_finished", "gate_rejected"]},
+    "counted_failure": {"type": "boolean"},
+    "cost_usd": {"type": ["number", "null"]},
+    "tokens": {"type": "object", "properties": {"input": {"type": ["integer", "null"]}, "cache": {"type": ["integer", "null"]},
+                                                  "output": {"type": ["integer", "null"]}}},
+    "agent_exec_sec": {"type": ["number", "null"]},
+    "classification": {"type": "object"}
+  }
+}

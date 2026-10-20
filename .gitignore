@@ -1,0 +1,26 @@
+# The include/exclude contract: code, configs, schemas, docs and tests ship; secrets, data and run artifacts do not.
+
+# secrets / env
+.env
+.env.*
+!.env.example
+
+# python
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+build/
+dist/
+
+# os / editor
+.DS_Store
+
+# the dataset (fetched from Hugging Face on demand)
+benchmark/
+
+# Harbor job trees (ephemeral, large, may contain keys) and collected runs (large; your own results)
+jobs/
+runs/

@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ContractBench grade metadata (runs/<run-id>/grades/<model>/<target>/attempt<N>/grade_meta.json)",
+  "type": "object",
+  "required": ["model_slug", "input_task", "attempt", "target_task", "panel", "degraded"],
+  "properties": {
+    "model_slug": {"type": "string"},
+    "input_task": {"type": "string"},
+    "attempt": {"type": "integer", "minimum": 1},
+    "target_task": {"type": "string"},
+    "deliverable_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "panel": {"type": "string"},
+    "judge_py_sha256": {"type": "string"},
+    "rubrics_sha256": {"type": "string"},
+    "started_at": {"type": "string"},
+    "finished_at": {"type": "string"},
+    "exit_code": {"type": ["integer", "null"]},
+    "survivors": {"type": ["array", "null"], "items": {"type": "string"}},
+    "judge_mode": {"type": ["string", "null"]},
+    "gate_passed": {"type": ["boolean", "null"]},
+    "degraded": {"type": "boolean"}
+  }
+}

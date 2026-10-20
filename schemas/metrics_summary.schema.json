@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ContractBench metrics summary (runs/<run-id>/metrics/summary.json)",
+  "type": "object",
+  "required": ["run_id", "panel", "leaderboard", "slices", "failures", "cost"],
+  "properties": {
+    "run_id": {"type": "string"},
+    "panel": {"type": "string"},
+    "leaderboard": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["model", "slug", "private_score", "public_score", "full_score", "completion_rate", "n_grades", "n_rollouts"],
+        "properties": {
+          "model": {"type": "string"},
+          "slug": {"type": "string"},
+          "private_score": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+          "public_score": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+          "full_score": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+          "completion_rate": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+          "turn1_score": {"type": ["number", "null"]},
+          "turn2_score": {"type": ["number", "null"]},
+          "spread_points": {"type": ["number", "null"]},
+          "n_grades": {"type": "integer"},
+          "n_rollouts": {"type": "integer"},
+          "best_effort": {"type": "boolean"}
+        }
+      }
+    },
+    "slices": {"type": "object"},
+    "failures": {"type": "object"},
+    "cost": {"type": "object"},
+    "surgicality": {"type": "object"}
+  }
+}
