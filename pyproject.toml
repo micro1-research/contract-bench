@@ -12,7 +12,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-grade = ["python-docx==1.2.0", "litellm>=1.83"]   # what the dataset's grader imports
+grade = ["python-docx==1.2.0", "litellm>=1.83,<=1.106.2"]   # what the dataset's grader imports; 1.107.0 is backdoored
 dev = ["pytest>=8", "ruff>=0.6", "jsonschema>=4"]
 
 [project.scripts]
